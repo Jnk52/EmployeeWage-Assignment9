@@ -1,18 +1,27 @@
 #!/bin/bash -x
-ispartTime=1;
-isfullTime=2;
-employeeRatePerHour=20;
+
+isFullTime=1;
+isPartTime=2;
+totalSalary=0;
+workingDays=20;
+ratePerHour=10;
 empCheck=$((RANDOM%3))
-case $empCheck in
-        $ispartTime)
-                empHours=4
+for (( day=1; day<=workingDays ; day++ ))
+do
+        empCheck=$((RANDOM%3));
+        case $empCheck in
+                $isFullTime)
+                empHrs=8
                 ;;
-        $isfullTime)
-                empHours=8
+                $isPartTime)
+                empHrs=4
                 ;;
-        *)
-                empHours=0
+                *)
+                empHrs=0
                 ;;
-esac
-salary=$(($empHours * $employeeRatePerHour));
-echo $salary;
+        esac
+salary=$(($empHrs *$ratePerHour));
+totalSalary=$(($totalSalary + $salary));
+done
+echo "Total salary:" $totalSalary
+
